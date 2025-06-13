@@ -21,7 +21,7 @@ An intelligent markdown-based blog editor powered by OpenAI. Write, edit, and po
 - **React** (with Vite)
 - **TypeScript**
 - **Tailwind CSS**
-- **react-markdown** or **SimpleMDE** for markdown editing
+- **react-markdown** for markdown editing
 
 ### Backend
 - **Node.js + Express**
