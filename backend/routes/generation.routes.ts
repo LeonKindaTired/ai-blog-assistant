@@ -1,5 +1,8 @@
 import express, { Request, Response, NextFunction } from "express";
-import { generateIntro } from "../controllers/generation.controller";
+import {
+  generateIntro,
+  generateSummary,
+} from "../controllers/generation.controller";
 
 const router = express.Router();
 
@@ -21,6 +24,30 @@ router.post(
       }
 
       res.json({ intro });
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+router.post(
+  "/generate-summary",
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { content } = req.body;
+
+      if (!content) {
+        res.status(400).json({ error: "No content Provided" });
+        return;
+      }
+
+      const summary = await generateSummary(content);
+
+      if (!summary) {
+        throw new Error("Failed to generate summary");
+      }
+
+      res.json({ summary });
     } catch (error) {
       next(error);
     }

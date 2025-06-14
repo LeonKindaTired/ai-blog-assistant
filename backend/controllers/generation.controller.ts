@@ -30,3 +30,29 @@ export async function generateIntro(message: string) {
     return null;
   }
 }
+
+export async function generateSummary(message: string) {
+  try {
+    return await groq.chat.completions
+      .create({
+        messages: [
+          {
+            role: "system",
+            content: "You are a helpful assistant that writes blog summaries",
+          },
+          {
+            role: "user",
+            content: `Generate a summary for this post: ${message}`,
+          },
+        ],
+        model: "llama-3.3-70b-versatile",
+      })
+      .then((chatCompletion) => {
+        const summary = chatCompletion.choices[0]?.message?.content || null;
+        return summary;
+      });
+  } catch (error) {
+    console.error("Error generating intro: " + error);
+    return null;
+  }
+}

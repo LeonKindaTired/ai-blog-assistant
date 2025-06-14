@@ -7,9 +7,10 @@ import axios from "axios";
 
 const MarkDownEditor = () => {
   const [markdown, setMarkdown] = useState<string>("");
+  const [summary, setSummary] = useState<string>("");
 
   const handleGenerateIntro = async () => {
-    if (markdown.length) return alert("100 or more characters.");
+    if (markdown.length <= 100) return alert("100 or more characters needed.");
     try {
       const response = await axios.post(
         "http://localhost:5000/api/generate/generate-intro",
@@ -19,6 +20,21 @@ const MarkDownEditor = () => {
       );
       const generatedIntro = response.data.intro;
       setMarkdown(`${generatedIntro}\n\n${markdown}`);
+    } catch (error) {
+      console.error("Intro generation failed: ", error);
+    }
+  };
+
+  const handleGenerateSummary = async () => {
+    if (markdown.length <= 100) return alert("100 or more characters needed.");
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/generate/generate-summary",
+        {
+          content: markdown,
+        }
+      );
+      setSummary(`${response.data.summary}`);
     } catch (error) {
       console.error("Intro generation failed: ", error);
     }
@@ -64,8 +80,42 @@ const MarkDownEditor = () => {
             />
           </div>
         </div>
+        {summary.length !== 0 ? (
+          <div className="border border-gray-300 w-full min-h-32 rounded-lg overflow-auto p-4 markdown-container">
+            <ReactMarkdown
+              children={summary}
+              components={{
+                p: ({ node, ...props }) => (
+                  <p className="break-words" {...props} />
+                ),
+                h1: ({ node, ...props }) => (
+                  <h1 className="break-words" {...props} />
+                ),
+                h2: ({ node, ...props }) => (
+                  <h2 className="break-words" {...props} />
+                ),
+                h3: ({ node, ...props }) => (
+                  <h3 className="break-words" {...props} />
+                ),
+                li: ({ node, ...props }) => (
+                  <li className="break-words" {...props} />
+                ),
+                td: ({ node, ...props }) => (
+                  <td className="break-words" {...props} />
+                ),
+                th: ({ node, ...props }) => (
+                  <th className="break-words" {...props} />
+                ),
+              }}
+            />
+          </div>
+        ) : (
+          ""
+        )}
       </div>
       <div className="flex items-center justify-center gap-5 my-3">
+        <Button onClick={handleGenerateSummary}>Summarize</Button>
+        <Button onClick={() => setSummary("")}>Clear Summary</Button>
         <Button onClick={handleGenerateIntro}>Generate Intro</Button>
       </div>
     </div>
