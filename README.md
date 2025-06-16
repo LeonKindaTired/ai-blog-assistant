@@ -1,16 +1,16 @@
 # ✨ AI-Powered Blog Assistant
 
-An intelligent markdown-based blog editor powered by OpenAI. Write, edit, and polish your blog posts with the help of AI — all in one place.
+An intelligent markdown-based blog editor powered by Groq + LLaMA3. Write, edit, and polish your blog posts with the help of AI — all in one place.
 
 ---
 
 ## 📌 Features
 
 - 📝 Live Markdown Editor with Preview
-- 🤖 AI-Powered Intro Generator (via OpenAI API)
+- 🤖 AI-Powered Intro Generator (via Groq + LLaMA3 API)
 - 📚 AI-Powered Summarizer for long posts
 - 💾 Draft Saving to Local Storage
-- 🌗 Light/Dark Mode (optional)
+- 🌗 Light/Dark Mode
 - 🚀 Fully responsive and clean UI with Tailwind CSS
 
 ---
@@ -21,10 +21,10 @@ An intelligent markdown-based blog editor powered by OpenAI. Write, edit, and po
 - **React** (with Vite)
 - **TypeScript**
 - **Tailwind CSS**
-- **react-markdown** for markdown editing
+- **React-markdown** for markdown editing
 
 ### Backend
 - **Node.js + Express**
 - **TypeScript**
-- **OpenAI API** for AI-generated content
+- **Groq + LLaMA3 API** for AI-generated content
 - **dotenv** for environment variables
