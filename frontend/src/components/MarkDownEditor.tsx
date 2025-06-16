@@ -61,7 +61,9 @@ const MarkDownEditor = () => {
     try {
       setIsGenerating(true);
       const response = await axios.post(
-        "http://localhost:5000/api/generate/generate-intro",
+        `${
+          import.meta.env.VITE_BACKEND_API_BASE_URL
+        }/api/generate/generate-intro`,
         { content: markdown }
       );
       setMarkdown(`${response.data.intro}\n\n${markdown}`);
@@ -87,7 +89,9 @@ const MarkDownEditor = () => {
     try {
       setIsGenerating(true);
       const response = await axios.post(
-        "http://localhost:5000/api/generate/generate-summary",
+        `${
+          import.meta.env.VITE_BACKEND_API_BASE_URL
+        }/api/generate/generate-summary`,
         { content: markdown }
       );
       setSummary(response.data.summary);
