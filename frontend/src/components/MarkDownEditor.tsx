@@ -133,30 +133,32 @@ const MarkDownEditor = () => {
   }, [markdown]);
 
   return (
-    <div className="max-w-6xl w-full mx-auto p-4 md:p-6">
+    <div className="max-w-6xl w-full mx-auto md:p-6">
       <Card className="bg-background shadow-lg">
         <CardHeader>
-          <div className="flex justify-between items-start">
-            <div>
-              <CardTitle className="text-2xl font-bold flex items-center gap-2">
-                <FileText className="w-5 h-5" /> Markdown Editor
+          <div className="flex flex-col gap-4 md:flex-row md:justify-between md:items-start">
+            <div className="flex-1 min-w-0">
+              <CardTitle className="text-xl md:text-2xl font-bold flex items-center gap-2">
+                <FileText className="w-4 h-4 md:w-5 md:h-5" />
+                <span className="truncate">Markdown Editor</span>
               </CardTitle>
-              <CardDescription className="mt-2">
+              <CardDescription className="mt-1 md:mt-2 text-center md:text-left">
                 Write in Markdown and preview in real-time
               </CardDescription>
             </div>
 
-            <div className="flex gap-2">
+            <div className="flex justify-between md:gap-2 flex-wrap">
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Button
                       variant="outline"
-                      size="icon"
+                      size="sm"
+                      className="h-8 w-1/4 md:h-9 md:w-9 "
                       onClick={saveDraft}
                       disabled={markdown.length === 0}
                     >
-                      <Save className="h-4 w-4" />
+                      <Save className="h-3.5 w-3.5 md:h-4 md:w-4" />
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent>
@@ -168,8 +170,13 @@ const MarkDownEditor = () => {
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <Button variant="outline" size="icon" onClick={loadDraft}>
-                      <FolderOpen className="h-4 w-4" />
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="h-8 w-1/4 md:h-9 md:w-9"
+                      onClick={loadDraft}
+                    >
+                      <FolderOpen className="h-3.5 w-3.5 md:h-4 md:w-4" />
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent>
@@ -181,11 +188,16 @@ const MarkDownEditor = () => {
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <Button variant="outline" size="icon" onClick={toggleTheme}>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="h-8 w-1/4 md:h-9 md:w-9"
+                      onClick={toggleTheme}
+                    >
                       {theme === "light" ? (
-                        <Moon className="h-4 w-4" />
+                        <Moon className="h-3.5 w-3.5 md:h-4 md:w-4" />
                       ) : (
-                        <Sun className="h-4 w-4" />
+                        <Sun className="h-3.5 w-3.5 md:h-4 md:w-4" />
                       )}
                     </Button>
                   </TooltipTrigger>
@@ -200,28 +212,32 @@ const MarkDownEditor = () => {
 
         <CardContent>
           <Tabs defaultValue="editor" className="w-full">
-            <TabsList className="grid grid-cols-2 w-[200px] mb-4">
-              <TabsTrigger value="editor">Editor</TabsTrigger>
-              <TabsTrigger value="preview">Preview</TabsTrigger>
+            <TabsList className="w-full max-w-xs mx-auto md:mx-0 mb-4 md:mb-4 md:w-[200px] md:items-start">
+              <TabsTrigger value="editor" className="w-full">
+                Editor
+              </TabsTrigger>
+              <TabsTrigger value="preview" className="w-full">
+                Preview
+              </TabsTrigger>
             </TabsList>
 
             <TabsContent value="editor">
-              <div className="space-y-3">
+              <div className="space-y-2 md:space-y-3">
                 <Label htmlFor="markdown-editor">Your Content</Label>
                 <Textarea
                   id="markdown-editor"
                   value={markdown}
                   onChange={(e) => setMarkdown(e.target.value)}
                   placeholder="Write your Markdown here..."
-                  className="min-h-[300px] w-full font-mono text-sm p-4"
+                  className="min-h-[250px] md:min-h-[300px] w-full font-mono text-xs md:text-sm p-3 md:p-4"
                 />
               </div>
             </TabsContent>
 
             <TabsContent value="preview">
-              <div className="space-y-3">
+              <div className="space-y-2 md:space-y-3">
                 <Label>Preview</Label>
-                <div className="border rounded-lg p-4 min-h-[300px] bg-white dark:bg-gray-900 text-left">
+                <div className="border rounded-lg p-3 min-h-[250px] md:min-h-[300px] bg-white dark:bg-gray-900 text-left text-sm md:text-base">
                   <ReactMarkdown
                     children={markdown || "*Nothing to preview*"}
                   />
@@ -231,7 +247,7 @@ const MarkDownEditor = () => {
           </Tabs>
 
           {summary && (
-            <div className="mt-6 space-y-3">
+            <div className="mt-4 md:mt-6 space-y-2 md:space-y-3">
               <div className="flex justify-between items-center">
                 <Label>AI Summary</Label>
                 <Button
@@ -239,10 +255,10 @@ const MarkDownEditor = () => {
                   size="sm"
                   onClick={() => setSummary("")}
                 >
-                  <X className="w-4 h-4 mr-1" /> Clear
+                  <X className="w-3.5 h-3.5 md:w-4 md:h-4 mr-1" /> Clear
                 </Button>
               </div>
-              <div className="bg-blue-50 dark:bg-blue-900/30 rounded-lg p-4 border border-blue-200 dark:border-blue-800">
+              <div className="bg-blue-50 dark:bg-blue-900/30 rounded-lg p-3 md:p-4 border border-blue-200 dark:border-blue-800 text-sm">
                 <ReactMarkdown children={summary} />
               </div>
             </div>
@@ -254,6 +270,7 @@ const MarkDownEditor = () => {
             <Button
               onClick={handleGenerateSummary}
               disabled={isGenerating || markdown.length < 100}
+              className="w-full md:w-auto"
             >
               {isGenerating ? (
                 <RotateCw className="mr-2 h-4 w-4 animate-spin" />
@@ -267,6 +284,7 @@ const MarkDownEditor = () => {
               onClick={handleGenerateIntro}
               disabled={isGenerating || markdown.length < 100}
               variant="secondary"
+              className="w-full md:w-auto"
             >
               {isGenerating ? (
                 <RotateCw className="mr-2 h-4 w-4 animate-spin" />
@@ -288,9 +306,14 @@ const MarkDownEditor = () => {
         </CardFooter>
       </Card>
 
-      <div className="mt-4 text-center text-sm text-muted-foreground">
+      <div className="mt-3 text-center text-xs md:text-sm text-muted-foreground">
         Auto-saves every 10 seconds
       </div>
+
+      <footer className="mt-8 text-center text-xs text-gray-500 dark:text-gray-400">
+        <p>Scribo • Works on all devices</p>
+        <p className="mt-1">Desktop | Tablet | Mobile</p>
+      </footer>
     </div>
   );
 };
