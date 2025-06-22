@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import Groq from "groq-sdk";
 
-dotenv.config();
+dotenv.config({ path: ".env.backend" });
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 export async function generateIntro(message: string) {
