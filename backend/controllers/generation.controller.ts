@@ -1,9 +1,9 @@
 import dotenv from "dotenv";
+import Groq from "groq-sdk";
+
 dotenv.config();
 
-import Groq from "groq-sdk";
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
-
 export async function generateIntro(message: string) {
   try {
     return await groq.chat.completions

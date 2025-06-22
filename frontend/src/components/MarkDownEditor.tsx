@@ -61,10 +61,10 @@ const MarkDownEditor = () => {
     try {
       setIsGenerating(true);
       const response = await axios.post(
-        `${
-          import.meta.env.VITE_BACKEND_API_BASE_URL
-        }/api/generate/generate-intro`,
-        { content: markdown }
+        `https://scribo.onrender.com/api/generate/generate-intro`,
+        {
+          content: markdown,
+        }
       );
       setMarkdown(`${response.data.intro}\n\n${markdown}`);
       toast.success("Introduction generated!");
@@ -89,10 +89,10 @@ const MarkDownEditor = () => {
     try {
       setIsGenerating(true);
       const response = await axios.post(
-        `${
-          import.meta.env.VITE_BACKEND_API_BASE_URL
-        }/api/generate/generate-summary`,
-        { content: markdown }
+        `https://scribo.onrender.com/api/generate/generate-summary`,
+        {
+          content: markdown,
+        }
       );
       setSummary(response.data.summary);
       toast.success("Summary generated!");
@@ -124,10 +124,8 @@ const MarkDownEditor = () => {
     const intervalId = setInterval(() => {
       if (markdown.length > 0) {
         const storedDraft = localStorage.getItem("draft");
-        const currentDraft = JSON.stringify(markdown);
-
-        if (storedDraft !== currentDraft) {
-          localStorage.setItem("draft", currentDraft);
+        if (storedDraft !== markdown) {
+          localStorage.setItem("draft", markdown);
           toast("Draft auto-saved.");
         }
       }
